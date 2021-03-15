@@ -42,8 +42,8 @@ import { findByDisplayValue } from "@testing-library/dom";
 
 const data1 = [
   {
-		icon: <StarTwoTone />,
-		// value:4,
+    icon: <StarTwoTone />,
+    // value:4,
     text: "Coasts Hotels",
     Price: 2252,
     image: coastal,
@@ -163,6 +163,7 @@ function Profile() {
   const [min, setMin] = useState(1000);
   const [max, setMax] = useState(7000);
   const [sliderChange, SetsliderChange] = useState(false);
+  const [propertyChange, SetPropertyChange] = useState(false);
 
   const checkbox_Star = [
     {
@@ -235,19 +236,18 @@ function Profile() {
     return (
       <div key={index} style={{ marginTop: 30 }} className="card1">
         <div className="div1">
-         
-          <Title   level={3}>  {user.icon}</Title>
-						<Button
-						style={{marginTop:-8,marginLeft:-15}}
-          size="small"
-          type="primary"
-					shape="circle"
-        >
+          <Title level={3}> {user.icon}</Title>
+          <Button
+            style={{ marginTop: -8, marginLeft: -15 }}
+            size="small"
+            type="primary"
+            shape="circle"
+          >
             {user.icon1}
-        </Button>
-				 <Title style={{}} level={3}>
-						{user.text}{" "}
-            <Title style={{ marginLeft: 25 }} level={5}>
+          </Button>
+          <Title style={{}} level={3}>
+            {user.text}{" "}
+            <Title style={{ color: "rgba(0, 0, 0, 0.54)" }} level={5}>
               ${user.Price}/night
             </Title>
           </Title>
@@ -398,6 +398,63 @@ function Profile() {
       SetsliderChange(true);
     }
   }
+  const handleRemove = (total, item) => {
+    console.log("data=====>", total, item);
+  };
+  const Applied = () => {
+    let dataField = [];
+    const sliderpart = (
+      <div className="filter">
+        <Title style={{ marginLeft: 20, textAlign: "center" }} level={5}>
+          $ {min}-{max}
+          {""}
+          {/* <Button style={{width:5,height:30,marginLeft:10 	}} >
+            {" "} */}
+          <CloseCircleFilled
+            onClick={() => SetsliderChange(false)}
+            style={{ marginLeft: 10 }}
+          />{" "}
+          {/* </Button>{" "} */}
+        </Title>
+      </div>
+    );
+    sliderChange && dataField.push(sliderpart);
+    let property = [];
+    text.map((item) => {
+      property.push(
+        <div className="filter">
+          <Title style={{ textAlign: "center" }} level={5}>
+            {item}
+            <CloseCircleFilled
+              onClick={() => handleRemove(dataField, item)}
+              style={{ marginLeft: 10 }}
+            />
+          </Title>
+        </div>
+      );
+    });
+    dataField.push(property);
+    let facility = [];
+    button.map((item) => {
+      facility.push(
+        <div className="filter">
+          <Title style={{ textAlign: "center" }} level={5}>
+            {item}
+            <CloseCircleFilled
+              onClick={() => handleRemove(dataField, item)}
+              style={{ marginLeft: 10 }}
+            />
+          </Title>
+        </div>
+      );
+    });
+    dataField.push(facility);
+    if (dataField.length == 0) {
+      return;
+    } else {
+      return dataField;
+    }
+  };
   const { Header, Content, Footer, Sider } = Layout;
   const { Title } = Typography;
   const { SubMenu } = Menu;
@@ -415,7 +472,6 @@ function Profile() {
             onChange={(event) => searchFilter(event)}
           />
         </Input.Group>
-
         <MailTwoTone className="email" />
         <Button
           style={{ marginTop: 8, marginLeft: -10 }}
@@ -436,7 +492,7 @@ function Profile() {
         >
           17{" "}
         </Button>
-        <UserOutlined className="userIcon" /> 
+        <UserOutlined className="userIcon" />
       </Header>
       <div style={{ display: "flex" }}>
         <div className="first">
@@ -462,7 +518,7 @@ function Profile() {
                 ></Menu.Item>
               </SubMenu>
               <SubMenu
-							 style={{ color: "rgba(0, 0, 0, 0.54)" }}
+                style={{ color: "rgba(0, 0, 0, 0.54)" }}
                 key="sub2"
                 icon={<GiftOutlined style={{ fontSize: "20px" }} />}
               >
@@ -480,7 +536,7 @@ function Profile() {
                 ></Menu.Item>
               </SubMenu>
               <SubMenu
-							 style={{ color: "rgba(0, 0, 0, 0.54)" }}
+                style={{ color: "rgba(0, 0, 0, 0.54)" }}
                 key="sub4"
                 icon={<InboxOutlined style={{ fontSize: "25px" }} />}
               >
@@ -501,30 +557,20 @@ function Profile() {
           </Content>
         </div>
         <div className="border"></div>
-        <div className="second">
+        <div className="second" >
           <Content style={{ marginLeft: 20 }}>
-            {sliderChange && (
-              <div>
-                <Title style={{ marginTop: 25 }} level={4}>
-                  Applied Filters
-                </Title>
-                <div className="filter">
-                  <Title style={{ marginLeft: 20 }} level={5}>
-                    $ {min}-{max}{" "}  
-                    <Button onClick={() => SetsliderChange(false)}>
-                      {" "}
-                      <CloseCircleFilled />{" "}
-                    </Button>{" "}
-                  </Title>
-                </div>
-              </div>
-            )}
+            <div>
+              <Title style={{ marginTop: 25 }} level={4}>
+                Applied Filters
+              </Title>
+              {Applied()}
+            </div>
             <Title style={{ marginTop: 20 }} level={4}>
               Set Filters
             </Title>
             <Title level={5}>Price Range</Title>
             <Slider
-              className="slider"
+              className=" slider slider-track"
               step={10}
               min={1000}
               max={7000}
@@ -533,7 +579,9 @@ function Profile() {
               defaultValue={[min, max]}
               value={[min, max]}
             />
-            <Title  style={{color:'rgba(0, 0, 0, 0.54)'}} level={5}>Star Category</Title>
+            <Title style={{ color: "rgba(0, 0, 0, 0.54)" }} level={5}>
+              Star Category
+            </Title>
             <Checkbox.Group style={{ width: "100%" }} onChange={onChange}>
               <Col>
                 {checkbox_Star.map((user, index) => (
@@ -549,7 +597,11 @@ function Profile() {
                 ))}
               </Col>
             </Checkbox.Group>
-            <Title   style={{color:'rgba(0, 0, 0, 0.54)'}} className="checkbox" level={5}>
+            <Title
+              style={{ color: "rgba(0, 0, 0, 0.54)" }}
+              className="checkbox"
+              level={5}
+            >
               Property Type
             </Title>
             <Checkbox.Group
@@ -566,7 +618,11 @@ function Profile() {
                 ))}
               </Col>
             </Checkbox.Group>
-            <Title  style={{color:'rgba(0, 0, 0, 0.54)'}}  className="checkbox" level={5}>
+            <Title
+              style={{ color: "rgba(0, 0, 0, 0.54)" }}
+              className="checkbox"
+              level={5}
+            >
               Facility
             </Title>
             <Checkbox.Group
@@ -587,7 +643,7 @@ function Profile() {
         </div>
         <div className="third">
           <Content>
-            <div style={{ display:"flex", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
               {data.map((user, index) => card(user, index))}
             </div>
           </Content>
