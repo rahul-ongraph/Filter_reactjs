@@ -236,31 +236,39 @@ function Profile() {
     return (
       <div key={index} style={{ marginTop: 30 }} className="card1">
         <div className="div1">
-          <Title level={3}> {user.icon}</Title>
+          <Title style={{ fill: 'currentColor'}} level={3}>
+            {user.icon}
+          </Title>
           <Button
-            style={{ marginTop: -8, marginLeft: -15 }}
+            style={{ marginTop: -8, marginLeft: -15, color: "#fff" }}
             size="small"
             type="primary"
             shape="circle"
           >
             {user.icon1}
           </Button>
-          <Title style={{}} level={3}>
-            {user.text}{" "}
-            <Title style={{ color: "rgba(0, 0, 0, 0.54)" }} level={5}>
+          <Title
+            style={{ marginLeft: 10, fontSize: 20, fontWeight: "lighter" }}
+            level={3}
+          >
+            {user.text}
+            <Title style={{ color: "rgba(0, 0, 0, 0.33)",fontSize:13 }} level={5}>
               ${user.Price}/night
             </Title>
           </Title>
         </div>
-        <Image preview={false} src={user.image} width={280} height={130} />
+        <Image preview={false} src={user.image} width={321} height={140} />
         {user.facility.map((item) => (
           <Button className="button">{item} </Button>
         ))}
-        <Title style={{ marginLeft: 20, marginTop: 10 }} level={5}>
+        <Title
+          style={{ marginLeft:15, marginTop: 10, fontWeight: "lighter" }}
+          level={5}
+        >
           {user.text2}
         </Title>
-        <p style={{ marginLeft: 20, width: 250 }}>{user.text3}</p>
-        <Rate defaultValue={user.icon1} />
+        <p style={{ marginLeft: 20, width:300}}>{user.text3}</p>
+        <Rate style={{ fontSize: "medium" , marginLeft:10}} defaultValue={user.icon1} />
       </div>
     );
   };
@@ -405,16 +413,15 @@ function Profile() {
     let dataField = [];
     const sliderpart = (
       <div className="filter">
-        <Title style={{ marginLeft: 20, textAlign: "center" }} level={5}>
+        <Title
+          style={{ marginLeft: 10, textAlign: "center", fontSize: 12 }}
+          level={5}
+        >
           $ {min}-{max}
-          {""}
-          {/* <Button style={{width:5,height:30,marginLeft:10 	}} >
-            {" "} */}
           <CloseCircleFilled
             onClick={() => SetsliderChange(false)}
             style={{ marginLeft: 10 }}
-          />{" "}
-          {/* </Button>{" "} */}
+          />
         </Title>
       </div>
     );
@@ -472,7 +479,7 @@ function Profile() {
             onChange={(event) => searchFilter(event)}
           />
         </Input.Group>
-        <MailTwoTone className="email" />
+        <MailTwoTone className="email" style={{ color: "red" }} />
         <Button
           style={{ marginTop: 8, marginLeft: -10 }}
           className="Button_Circle"
@@ -496,7 +503,7 @@ function Profile() {
       </Header>
       <div style={{ display: "flex" }}>
         <div className="first">
-          <Content>
+          <Content style={{ color: "rgba(0, 0, 0, 0.54)" }}>
             <Menu style={{ color: "rgba(0, 0, 0, 0.54)" }} mode="inline">
               <SubMenu
                 style={{ color: "rgba(0, 0, 0, 0.54)" }}
@@ -557,18 +564,25 @@ function Profile() {
           </Content>
         </div>
         <div className="border"></div>
-        <div className="second" >
+        <div className="second">
           <Content style={{ marginLeft: 20 }}>
-            <div>
-              <Title style={{ marginTop: 25 }} level={4}>
-                Applied Filters
-              </Title>
-              {Applied()}
-            </div>
-            <Title style={{ marginTop: 20 }} level={4}>
+            {sliderChange && (
+              <div>
+                <Title
+                  style={{ marginTop: 25, fontWeight: "lighter" }}
+                  level={4}
+                >
+                  Applied Filters
+                </Title>
+                {Applied()}
+              </div>
+            )}
+            <Title style={{ marginTop: 20, fontWeight: "lighter" }} level={4}>
               Set Filters
             </Title>
-            <Title level={5}>Price Range</Title>
+            <Title style={{ fontWeight: "lighter" }} level={5}>
+              Price Range
+            </Title>
             <Slider
               className=" slider slider-track"
               step={10}
