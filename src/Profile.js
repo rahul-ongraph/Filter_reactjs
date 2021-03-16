@@ -42,7 +42,7 @@ import { findByDisplayValue } from "@testing-library/dom";
 
 const data1 = [
   {
-    icon: <StarTwoTone />,
+    icon: <StarTwoTone  />,
     // value:4,
     text: "Coasts Hotels",
     Price: 2252,
@@ -77,7 +77,7 @@ const data1 = [
   },
   {
     icon: <StarTwoTone />,
-    text: "Moss Hotel",
+    text: "Moss View Hotel",
     Price: 3125,
     image: massView,
     facility: ["spa", "wifi"],
@@ -99,7 +99,7 @@ const data1 = [
   },
   {
     icon: <StarTwoTone />,
-    text: "param Hotels",
+    text: "paramount Hotels",
     Price: 6180,
     image: paramount,
     facility: ["wifi", "cafe"],
@@ -236,7 +236,7 @@ function Profile() {
     return (
       <div key={index} style={{ marginTop: 30 }} className="card1">
         <div className="div1">
-          <Title style={{ fill: 'currentColor'}} level={3}>
+          <Title style={{ color: "rgb(255, 180, 0)" }} level={3}>
             {user.icon}
           </Title>
           <Button
@@ -252,23 +252,29 @@ function Profile() {
             level={3}
           >
             {user.text}
-            <Title style={{ color: "rgba(0, 0, 0, 0.33)",fontSize:13 }} level={5}>
+            <Title
+              style={{ color: "rgba(0, 0, 0, 0.33)", fontSize: 13 }}
+              level={5}
+            >
               ${user.Price}/night
             </Title>
           </Title>
         </div>
-        <Image preview={false} src={user.image} width={321} height={140} />
+        <Image preview={false} src={user.image} width={'100%'} height={140} />
         {user.facility.map((item) => (
           <Button className="button">{item} </Button>
         ))}
         <Title
-          style={{ marginLeft:15, marginTop: 10, fontWeight: "lighter" }}
+          style={{ marginLeft: 15, marginTop: 10, fontWeight: "lighter" }}
           level={5}
         >
           {user.text2}
         </Title>
-        <p style={{ marginLeft: 20, width:300}}>{user.text3}</p>
-        <Rate style={{ fontSize: "medium" , marginLeft:10}} defaultValue={user.icon1} />
+        <p style={{ marginLeft: 20, width:'90%' }}>{user.text3}</p>
+        <Rate
+          style={{ fontSize: 15, marginLeft: 10 }}
+          defaultValue={user.icon1}
+        />
       </div>
     );
   };
@@ -475,7 +481,7 @@ function Profile() {
             size="large"
             value={search}
             placeholder="Search Hotel Name..."
-            prefix={<SearchOutlined />}
+            prefix={<SearchOutlined style={{fontSize:20}} />}
             onChange={(event) => searchFilter(event)}
           />
         </Input.Group>
@@ -593,7 +599,7 @@ function Profile() {
               defaultValue={[min, max]}
               value={[min, max]}
             />
-            <Title style={{ color: "rgba(0, 0, 0, 0.54)" }} level={5}>
+            <Title style={{ color: "rgba(0, 0, 0, 0.45)" }} level={5}>
               Star Category
             </Title>
             <Checkbox.Group style={{ width: "100%" }} onChange={onChange}>
@@ -612,7 +618,7 @@ function Profile() {
               </Col>
             </Checkbox.Group>
             <Title
-              style={{ color: "rgba(0, 0, 0, 0.54)" }}
+              style={{ color: "rgba(0, 0, 0, 0.45)" }}
               className="checkbox"
               level={5}
             >
@@ -633,7 +639,7 @@ function Profile() {
               </Col>
             </Checkbox.Group>
             <Title
-              style={{ color: "rgba(0, 0, 0, 0.54)" }}
+              style={{ color: "rgba(0, 0, 0, 0.45)" }}
               className="checkbox"
               level={5}
             >
